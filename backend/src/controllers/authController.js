@@ -18,7 +18,7 @@ export const loginWithGoogle = async (req, res) => {
         }
 
         let ticket;
-        
+
         try {
 
             console.log("Verifying the token of user with google.");
@@ -34,11 +34,11 @@ export const loginWithGoogle = async (req, res) => {
             return res.status(500).json({ status: "INTERNAL_SERVER_ERROR", message: "Error in validating google token id"});
         }
 
-        const { 
-            email, 
-            picture, 
-            given_name: firstName, 
-            family_name: lastName 
+        const {
+            email,
+            picture,
+            given_name: firstName,
+            family_name: lastName
         } = ticket.getPayload();
 
         console.log("Finding the user from mongodb");
@@ -61,30 +61,30 @@ export const loginWithGoogle = async (req, res) => {
                 console.log("Error occurred while creating the user in mongodb in loginWithGoogle", error.message);
                 return res.status(500).json({ status: "INTERNAL_SERVER_ERROR", message: "Something went wrong while creating the user."});
             }
-        } 
+        }
 
         console.log("Generating the jwt token for user.");
         const userToken = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" })
 
         console.log("Token Generated. Setting the token to cookies as jwt.");
-        res.cookie("jwt", 
-            userToken, 
-            { 
+        res.cookie("jwt",
+            userToken,
+            {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
-                httpOnly: true, 
-                sameSite: 'lax' 
+                httpOnly: true,
+                sameSite: 'lax'
             }
         );
 
-        return res.status(200).json({ 
-            status: "SUCCESS", 
+        return res.status(200).json({
+            status: "SUCCESS",
             message: "Login Successfully!",
-            data: { 
-                name: user.name, 
-                email: user.email, 
-                token: userToken, 
-                avatar: user.avatar 
-            } 
+            data: {
+                name: user.name,
+                email: user.email,
+                token: userToken,
+                avatar: user.avatar
+            }
         });
 
     } catch (error) {
