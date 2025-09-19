@@ -7,8 +7,8 @@ import { fileURLToPath } from 'url';
 import { config } from './config.js';
 import connectDB from './db/dbConnect.js';
 import authRouter from './routes/authRouter.js';
-import userRouter from './routes/userRouter.js';
 import shortURLRouter from './routes/shortURLRouter.js';
+import userRouter from './routes/userRouter.js';
 const app = express();
 
 // middlewares
@@ -33,11 +33,11 @@ connectDB();
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-app.use('/api/s',shortURLRouter)
+app.use('/api/s', shortURLRouter);
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
 app.get('/*name', (req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
 });
 
-app.listen(3000, () => console.log(`Server on PORT: ${3000}`));
+app.listen(config.PORT, () => console.log(`Server on PORT: ${config.PORT}`));
