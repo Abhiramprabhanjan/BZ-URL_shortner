@@ -40,4 +40,4 @@ app.get('/*name', (req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
 });
 
-app.listen(config.PORT, () => console.log(`Server on PORT: ${config.PORT}`));
+app.listen(3000, () => console.log(`Server on PORT: ${3000}`));
