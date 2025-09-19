@@ -1,7 +1,7 @@
 // src/controllers/userController.js (or .ts)
  // Adjust path as needed
 
-import { User } from "../models/user/user.model";
+import { User } from "../models/user/user.model.js";
 
 
 /**

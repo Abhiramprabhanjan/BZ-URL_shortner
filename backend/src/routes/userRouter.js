@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { isLoggedIn } from '../middlewares/authMiddleware';
-import { getUserDetails } from '../controllers/userController';
+import { isLoggedIn } from '../middlewares/authMiddleware.js';
+import { getUserDetails } from '../controllers/userController.js';
 
 
 
